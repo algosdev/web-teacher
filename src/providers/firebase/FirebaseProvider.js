@@ -39,7 +39,9 @@ export default function FirebaseProvider({ children }) {
     });
 
     return unsubscriber;
-  }, []);
+  }, [firebaseInstance]);
+
+  console.log('currentUser', currentUser);
 
   return (
     <FirebaseContext.Provider
@@ -49,7 +51,8 @@ export default function FirebaseProvider({ children }) {
         onCollectionChange,
         createDocument,
         updateDocument,
-        currentUser
+        currentUser,
+        isAuthenticated: !!currentUser
       }}
     >
       {children}
@@ -57,17 +60,9 @@ export default function FirebaseProvider({ children }) {
   );
 }
 FirebaseProvider.propTypes = {
-  children: PropTypes.node.isRequired,
-  config: PropTypes.shape({
-    apiKey: PropTypes.string,
-    authDomain: PropTypes.string,
-    databaseURL: PropTypes.string,
-    projectId: PropTypes.string,
-    storageBucket: PropTypes.string,
-    messagingSenderId: PropTypes.string,
-    appId: PropTypes.string
-  }).isRequired
+  children: PropTypes.node.isRequired
 };
+
 export const useFirebase = () => useContext(FirebaseContext);
 
 export const useFirebaseSubscriptions = ({ subscriptions = [], deps = [] }) => {

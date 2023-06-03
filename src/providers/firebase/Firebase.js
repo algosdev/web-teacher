@@ -55,14 +55,18 @@ class Firebase {
     }
   };
 
-  createUser = ({ email, password }) =>
+  createUser = ({ email, password, fullname }) =>
     createUserWithEmailAndPassword(this.auth, email, password)
       .then(userCredential => {
         const user = userCredential.user;
+        userCredential.updateProfile({
+          displayName: fullname
+        });
         return user;
       })
       .catch(error => {
         captureException(error);
+        throw error;
       });
 
   signIn = ({ email, password }) =>
@@ -73,6 +77,7 @@ class Firebase {
       })
       .catch(error => {
         captureException(error);
+        throw error;
       });
 
   updateProfile = data => fbUpdateProfile(this.auth.currentUser, data);

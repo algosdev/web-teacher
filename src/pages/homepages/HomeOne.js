@@ -13,33 +13,33 @@ import HomeOneBlog from '../../components/home-one/HomeOneBlog';
 import FooterOne from '../../common/footer/FooterOne';
 
 const HomeOne = () => {
-    return (
-        <>
-            <SEO title="Home 1" />
+  return (
+    <>
+      <SEO title="Web Teacher" />
 
-            <HeaderTwo styles="header-transparent header-style-2" />
+      <HeaderTwo styles="header-transparent header-style-2" />
 
-            <BannerOne />
-            
-            <HomeOneAbout />
+      <BannerOne />
 
-            <HomeOneCategory />
+      <HomeOneAbout />
 
-            <HomeOneCourses />
+      <HomeOneCategory />
 
-            <TestimonialSectionFour />
+      <HomeOneCourses />
 
-            <HomeOneInstructor />
+      <TestimonialSectionFour />
 
-            <VideoSectionTwo />
+      <HomeOneInstructor />
 
-            <NewsLettterOne />
+      <VideoSectionTwo />
 
-            <HomeOneBlog />     
+      <NewsLettterOne />
 
-            <FooterOne />   
-        </>
-    )
-}
+      <HomeOneBlog />
+
+      <FooterOne />
+    </>
+  );
+};
 
 export default HomeOne;
