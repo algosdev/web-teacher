@@ -99,6 +99,11 @@ function App() {
           <Route exact path={`${process.env.PUBLIC_URL + '/contact-us'}`} element={<ContactUs />} />
           <Route exact path={`${process.env.PUBLIC_URL + '/course-1'}`} element={<CourseOne />} />
           <Route exact path={`${process.env.PUBLIC_URL + '/lessons'}`} element={<CourseOne />} />
+          <Route
+            exact
+            path={`${process.env.PUBLIC_URL + '/lessons/:id'}`}
+            element={<CourseCreate />}
+          />
           <Route exact path={`${process.env.PUBLIC_URL + '/course-2'}`} element={<CourseTwo />} />
           <Route exact path={`${process.env.PUBLIC_URL + '/course-3'}`} element={<CourseThree />} />
           <Route exact path={`${process.env.PUBLIC_URL + '/course-4'}`} element={<CourseFour />} />

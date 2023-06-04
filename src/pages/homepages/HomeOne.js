@@ -15,7 +15,7 @@ import FooterOne from '../../common/footer/FooterOne';
 const HomeOne = () => {
   return (
     <>
-      <SEO title="Web Teacher" />
+      <SEO title="Asosiy sahifa" />
 
       <HeaderTwo styles="header-transparent header-style-2" />
 

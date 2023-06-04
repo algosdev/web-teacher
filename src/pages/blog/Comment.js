@@ -3,21 +3,18 @@ import { DiscussionEmbed } from 'disqus-react';
 import PropTypes from 'prop-types';
 
 const Comment = ({ url, id, title }) => {
-  const disqusShortname = 'devsvibe-com';
+  const disqusShortname = 'web-teachervercelcom';
   const disqusConfig = {
     url: url,
     identifier: `${id}`,
     title: title
   };
-  return '';
-  // return (
-  //     <DiscussionEmbed shortname={ disqusShortname } config={ disqusConfig } />
-  // )
+  return <DiscussionEmbed shortname={disqusShortname} config={disqusConfig} />;
 };
 
 Comment.propTypes = {
   url: PropTypes.string,
-  id: PropTypes.number,
+  id: PropTypes.string,
   title: PropTypes.string
 };
 

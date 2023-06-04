@@ -103,6 +103,10 @@ class Firebase {
     }
   };
 
+  getReference = ({ collectionName, id }) => {
+    return doc(this.firestore, collectionName, id);
+  };
+
   createDocument = async (data, { collectionName, id, shouldReturnDoc }) => {
     try {
       const payloadWithTimestamp = {
@@ -221,6 +225,12 @@ class Firebase {
         where(filter.key, filter.operator, filter.value)
       );
       const queryFilter = query(collection(this.firestore, collectionName), ...queryFilterArray);
+      console.log('queryFilter', queryFilter, {
+        collectionName,
+        returnOnlyFirst,
+        dataNormalizer,
+        filters
+      });
       const querySnapshot = await getDocs(queryFilter);
       const result = querySnapshot.docs.map(document => {
         const data = {

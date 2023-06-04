@@ -1,24 +1,35 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
-import { Link } from 'react-router-dom';
-import { slugify } from '../../utils';
 import SEO from '../../common/SEO';
 import Layout from '../../common/Layout';
 import BreadcrumbOne from '../../common/breadcrumb/BreadcrumbOne';
 import Comment from '../blog/Comment';
-import PostData from '../../data/blog/PostData.json';
-import Editor from '../../components/editor';
+import { useQuery } from '@tanstack/react-query';
+import { useFirebase } from '../../providers/firebase/FirebaseProvider';
+import { formatDate } from '../../utils/date';
+import Spinner from '../../components/spinner/Spinner';
 
 const CourseCreate = () => {
-  const { id = 1 } = useParams();
-  const blogId = parseInt(id, 10);
-  const dataItem = PostData.filter(blog => blog.id === blogId);
-  const data = dataItem[0];
+  const { id } = useParams();
+  const { getDocument } = useFirebase();
+  const { data: lesson, isLoading } = useQuery(['lessons', id], () =>
+    getDocument({ collectionName: 'lessons', id })
+  );
+  console.log(lesson);
+  if (isLoading) {
+    return <Spinner dark center />;
+  }
+
   return (
     <>
-      <SEO title={data.title} />
+      <SEO title={lesson.title} />
       <Layout>
-        <BreadcrumbOne title={data.title} rootUrl="/" parentUrl="Home" currentUrl="Blog Details" />
+        <BreadcrumbOne
+          title={lesson.title}
+          rootUrl="/"
+          parentUrl="Asosiy sahifa"
+          currentUrl="Dars"
+        />
         <div className="edu-blog-details-area edu-section-gap bg-color-white">
           <div className="container">
             <div className="row g-5">
@@ -26,57 +37,45 @@ const CourseCreate = () => {
                 <div className="blog-details-1 style-variation3">
                   <div className="content-blog-top">
                     <div className="content-status-top d-flex justify-content-between mb--30 align-items-center">
-                      <div className="status-group">
-                        <Link
-                          className="text-uppercase eduvibe-status status-05 color-primary w-600"
-                          to={
-                            process.env.PUBLIC_URL +
-                            `/category/${slugify(data.categories.slice(0, 1))}`
-                          }
-                        >
-                          {data.categories.slice(0, 1)}
-                        </Link>
-                      </div>
+                      <div className="status-group"></div>
                       <ul className="blog-meta">
-                        <li className="blog-author">
-                          <img
-                            src="/images/blog/author/author-small/author.png"
-                            alt="Blog Images"
-                          />{' '}
-                          <Link to={process.env.PUBLIC_URL + `/author/${slugify(data.author)}`}>
-                            {data.author}
-                          </Link>
-                        </li>
                         <li>
                           <i className="icon-calendar-2-line"></i>
-                          {data.date}
+                          {formatDate(lesson.createdAt.seconds * 1000)}
                         </li>
                         <li>
                           <i className="icon-discuss-line"></i>
-                          {data.comment}
+                          {lesson.comment || 2} izoh
                         </li>
                         <li>
                           <i className="icon-time-line"></i>
-                          {data.readingTime}
+                          {lesson.duration} minut
                         </li>
                       </ul>
                     </div>
 
-                    <h4 className="title">{data.title}</h4>
+                    <h4 className="title">{lesson.title}</h4>
 
                     <div className="thumbnail block-alignwide">
                       <img
                         className="radius-small w-100 mb--30"
-                        src={`${process.env.PUBLIC_URL}/images/blog/blog-details-01/${data.image}`}
+                        src={lesson.cover_image}
                         alt="Blog Thumb"
+                        style={{
+                          maxHeight: 600
+                        }}
                       />
                     </div>
                   </div>
-
-                  <Editor />
+                  <div
+                    className="blog-main-content"
+                    dangerouslySetInnerHTML={{
+                      __html: lesson.content || ''
+                    }}
+                  ></div>
 
                   <div className="blog-tag-and-share mt--50">
-                    {data.tags && data.tags.length > 0 && (
+                    {/* {data.tags && data.tags.length > 0 && (
                       <div className="blog-tag">
                         <div className="tag-list bg-shade">
                           {data.tags.map((tag, i) => {
@@ -88,7 +87,7 @@ const CourseCreate = () => {
                           })}
                         </div>
                       </div>
-                    )}
+                    )} */}
                     <div className="eduvibe-post-share">
                       <span>Share: </span>
                       <a className="linkedin" href="#">
@@ -172,7 +171,7 @@ const CourseCreate = () => {
                   </div>
 
                   <div className="edu-comment-form mt--50">
-                    <Comment url="" id={data.id} title={data.title} />
+                    <Comment url="" id={id} title={lesson.title} />
                   </div>
                 </div>
               </div>
