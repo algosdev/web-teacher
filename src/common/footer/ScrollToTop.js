@@ -24,7 +24,7 @@ const scrollToTop = () => {
     if (window.pageYOffset > offset) {
       progressWrap.classList.add('rn-backto-top-active');
     } else {
-      document.querySelector('.rn-progress-parent').classList.remove('rn-backto-top-active');
+      if (progressWrap) progressWrap.classList.remove('rn-backto-top-active');
     }
   });
   progressWrap.addEventListener('click', function (e) {
