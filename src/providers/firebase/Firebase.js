@@ -59,15 +59,48 @@ class Firebase {
     createUserWithEmailAndPassword(this.auth, email, password)
       .then(userCredential => {
         const user = userCredential.user;
-        userCredential.updateProfile({
-          displayName: fullname
-        });
         return user;
+      })
+      .then(user => {
+        return this.createDocument(
+          {
+            uid: user.uid,
+            fullname,
+            avatar: 'panda',
+            quizzes: {},
+            lessons: {}
+          },
+          {
+            collectionName: 'users',
+            id: user.uid,
+            shouldReturnDoc: true
+          }
+        );
       })
       .catch(error => {
         captureException(error);
         throw error;
       });
+
+  getUserData = user => {
+    return this.getDocument({ collectionName: 'users', id: user.uid }).then(res => {
+      if (res) {
+        return res;
+      }
+      return this.createDocument(
+        {
+          uid: user.uid,
+          quizzes: {},
+          lessons: {}
+        },
+        {
+          collectionName: 'users',
+          id: user.uid,
+          shouldReturnDoc: true
+        }
+      );
+    });
+  };
 
   signIn = ({ email, password }) =>
     signInWithEmailAndPassword(this.auth, email, password)
@@ -195,6 +228,27 @@ class Firebase {
     }
   };
 
+  updateUser = async data => {
+    try {
+      const payloadWithTimestamp = {
+        ...data,
+        updatedAt: serverTimestamp()
+      };
+      const ref = doc(this.firestore, 'users', this.auth.currentUser?.uid);
+      const res = await updateDoc(ref, payloadWithTimestamp);
+      return res;
+    } catch (err) {
+      captureException(err, {
+        extra: {
+          collectionName: 'users',
+          uid: this.auth.currentUser?.uid,
+          operation: 'updateDoc'
+        }
+      });
+      throw err;
+    }
+  };
+
   deleteDocument = async ({ collectionName, id }) => {
     try {
       const ref = doc(this.firestore, collectionName, id);
@@ -225,12 +279,7 @@ class Firebase {
         where(filter.key, filter.operator, filter.value)
       );
       const queryFilter = query(collection(this.firestore, collectionName), ...queryFilterArray);
-      console.log('queryFilter', queryFilter, {
-        collectionName,
-        returnOnlyFirst,
-        dataNormalizer,
-        filters
-      });
+
       const querySnapshot = await getDocs(queryFilter);
       const result = querySnapshot.docs.map(document => {
         const data = {
@@ -259,8 +308,18 @@ class Firebase {
     }
   };
 
+  onDocumentChange = ({ collectionName, id, onChangeCallback }) => {
+    const unsub = onSnapshot(doc(this.firestore, collectionName, id), doc => {
+      if (doc) {
+        onChangeCallback(doc.data());
+      }
+    });
+    return unsub;
+  };
+
   onCollectionChange = async ({
     collectionName,
+    id,
     withDocumentId = true,
     filters,
     onChangeCallback = () => {}
@@ -269,7 +328,10 @@ class Firebase {
       const queryFilterArray = filters.map(filter =>
         where(filter.key, filter.operator, filter.value)
       );
-      const queryFilter = query(collection(this.firestore, collectionName), ...queryFilterArray);
+      const queryFilter = query(
+        collection(this.firestore, collectionName, id),
+        ...queryFilterArray
+      );
       const unsubcribe = onSnapshot(
         queryFilter,
         querySnapshot => {

@@ -33,13 +33,10 @@ const CourseOne = () => {
   }));
   const results = useQueries({ queries });
 
-  if (isLoading) {
-    return <Spinner dark center />;
-  }
   return (
     <>
       <SEO title="Darslar" />
-      <Layout>
+      <Layout isLoading={isLoading}>
         <BreadcrumbOne title="Darslar" rootUrl="/" parentUrl="Asosiy sahifa" currentUrl="Darslar" />
         <div className="edu-course-area edu-section-gap bg-color-white">
           {sortedCategories.map((category, index) => (

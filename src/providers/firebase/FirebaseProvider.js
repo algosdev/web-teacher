@@ -9,6 +9,7 @@ import noop from 'lodash/noop';
 const FirebaseContext = createContext({});
 export default function FirebaseProvider({ children }) {
   const [currentUser, setCurrentUser] = useState(null);
+  const [userData, setUserData] = useState({});
   const [firebaseInstance] = useState(() => new Firebase(config));
 
   const defaultFilterQuery = [];
@@ -28,6 +29,7 @@ export default function FirebaseProvider({ children }) {
     const validated = omitBy(data, isUndefined);
     return firebaseInstance.createDocument({ ...validated, userId: currentUser.id }, options);
   };
+
   const updateDocument = (data, options) => {
     const validated = omitBy(data, isUndefined);
     return firebaseInstance.updateDocument({ ...validated, userId: currentUser.id }, options);
@@ -36,12 +38,28 @@ export default function FirebaseProvider({ children }) {
   useEffect(() => {
     const unsubscriber = firebaseInstance.subscribeAuthStateChange(user => {
       setCurrentUser(user);
+      if (user) {
+        firebaseInstance.getUserData(user).then(res => {
+          setUserData(res);
+        });
+      }
     });
 
     return unsubscriber;
   }, [firebaseInstance]);
 
-  console.log('currentUser', currentUser);
+  useEffect(() => {
+    if (currentUser) {
+      let unsubscribe = firebaseInstance.onDocumentChange({
+        collectionName: 'users',
+        id: currentUser.uid,
+        onChangeCallback(res) {
+          setUserData(res);
+        }
+      });
+      return () => unsubscribe && unsubscribe();
+    }
+  }, [currentUser]);
 
   return (
     <FirebaseContext.Provider
@@ -52,6 +70,7 @@ export default function FirebaseProvider({ children }) {
         createDocument,
         updateDocument,
         currentUser,
+        userData,
         isAuthenticated: !!currentUser
       }}
     >

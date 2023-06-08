@@ -1,0 +1,97 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+.quiz-question-container {
+  display: flex;
+  -webkit-box-pack: justify;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  flex-direction: column;
+  max-width: 970px;
+  padding: 85px 50px;
+}
+
+.quiz-question-container .quiz-question input[type='radio'] {
+  position: absolute;
+  opacity: 0;
+}
+
+.quiz-question-container .quiz-question {
+  cursor: pointer;
+  width: 100%;
+  margin-bottom: 16px;
+}
+
+.quiz-question-container .quiz-question .quiz-question-content {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  padding: 10px;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  border: 2px solid #e1e2e7;
+  border-radius: 10px;
+  -webkit-transition: -webkit-box-shadow 0.4s;
+  transition: -webkit-box-shadow 0.4s;
+  -o-transition: box-shadow 0.4s;
+  transition: box-shadow 0.4s;
+  transition: box-shadow 0.4s, -webkit-box-shadow 0.4s;
+  position: relative;
+}
+
+.quiz-question-container .quiz-question .quiz-question-content img {
+  margin-right: 30px;
+  height: 72px;
+}
+
+.quiz-question-container .quiz-question .quiz-question-details span {
+  margin-bottom: 10px;
+  display: block;
+  font-size: 16px;
+  line-height: 24px;
+  max-width: calc(100% - 30px);
+  color: #252f42;
+}
+
+.quiz-question-container .quiz-question .quiz-question-details p {
+  color: #646a79;
+  font-size: 14px;
+  line-height: 18px;
+}
+
+.quiz-question-container .quiz-question .quiz-question-content:hover {
+  -webkit-box-shadow: 0px 3px 5px 0px #e8e8e8;
+  box-shadow: 0px 3px 5px 0px #e8e8e8;
+}
+
+.quiz-question-container .quiz-question input[type='radio']:checked + .quiz-question-content:after {
+  content: '';
+  position: absolute;
+  height: 12px;
+  width: 12px;
+  background: #216fe0;
+  right: 20px;
+  top: 20px;
+  border-radius: 100%;
+  border: 3px solid #fff;
+  -webkit-box-shadow: 0px 0px 0px 2px #0066ff;
+  box-shadow: 0px 0px 0px 2px #0066ff;
+}
+
+.quiz-question-container .quiz-question input[type='radio']:checked + .quiz-question-content {
+  border: 2px solid #216ee0;
+  background: #eaf1fe;
+  -webkit-transition: ease-in 0.3s;
+  -o-transition: ease-in 0.3s;
+  transition: ease-in 0.3s;
+}
+.quiz-question-container .quiz-question-content.wrong {
+  background-color: #ffcaca !important;
+}
+.quiz-question-container .quiz-question-content.correct {
+  background-color: #b1ffb2 !important;
+}

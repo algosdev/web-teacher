@@ -1,33 +1,57 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import SEO from '../../common/SEO';
 import Layout from '../../common/Layout';
 import BreadcrumbOne from '../../common/breadcrumb/BreadcrumbOne';
-import Comment from '../blog/Comment';
 import { useQuery } from '@tanstack/react-query';
 import { useFirebase } from '../../providers/firebase/FirebaseProvider';
-import { formatDate } from '../../utils/date';
+import QuizQuestion from './QuizQuestion';
+import useConfettiFirework from '../../hooks/useConfetti';
 
-const CourseCreate = () => {
+const Quiz = () => {
   const { id } = useParams();
-  const { getDocument } = useFirebase();
-  const { data: lesson = {}, isLoading } = useQuery(['lessons', id], () =>
-    getDocument({ collectionName: 'lessons', id })
+  const { getDocuments, getReference, updateUser, userData } = useFirebase();
+  const { data: quiz = {}, isLoading } = useQuery(['quizzes', id], () =>
+    getDocuments({
+      collectionName: 'quizzes',
+      returnOnlyFirst: true,
+      filters: [
+        { key: 'lesson', operator: '==', value: getReference({ collectionName: 'lessons', id }) }
+      ]
+    })
   );
-  console.log(lesson);
+  const { fire, confettiComponent } = useConfettiFirework();
+  const [correctAnswerCount, setCorrectAnswerCount] = useState(0);
+  const [isSubmitted, setIsSubmitted] = useState(false);
+  const handleSubmit = e => {
+    e.preventDefault();
+    updateUser({
+      quizzes: {
+        ...userData.quizzes,
+        [id]: {
+          correctCount: correctAnswerCount,
+          allCount: quiz.questions.length
+        }
+      }
+    });
+    const isValid = true;
+    setIsSubmitted(true);
+    if (isValid) {
+      fire();
+    }
+  };
+
+  const attempt = userData.quizzes?.[id];
+  console.log('userData', userData);
 
   return (
     <>
-      <SEO title={lesson.title} />
+      {confettiComponent}
+      <SEO title={'Sinov testi'} />
       <Layout isLoading={isLoading}>
-        <BreadcrumbOne
-          title={lesson.title}
-          rootUrl="/"
-          parentUrl="Asosiy sahifa"
-          currentUrl="Dars"
-        />
+        <BreadcrumbOne title={'Sinov testi'} rootUrl="/" parentUrl="Asosiy sahifa" />
         <div className="edu-blog-details-area edu-section-gap bg-color-white">
-          <div className="container">
+          <form className="container" onSubmit={handleSubmit}>
             <div className="row g-5">
               <div className="col-lg-10 offset-lg-1">
                 <div className="blog-details-1 style-variation3">
@@ -37,81 +61,41 @@ const CourseCreate = () => {
                       <ul className="blog-meta">
                         <li>
                           <i className="icon-calendar-2-line"></i>
-                          {formatDate(lesson.createdAt?.seconds * 1000)}
+                          Oxirgi natijangiz:{' '}
+                          {attempt
+                            ? `${attempt.correctCount}/${quiz.questions?.length}`
+                            : "urinish yo'q"}
                         </li>
                         <li>
-                          <i className="icon-discuss-line"></i>
-                          {lesson.comment || 2} izoh
-                        </li>
-                        <li>
-                          <i className="icon-time-line"></i>
-                          {lesson.duration} minut
+                          <i className="icon-award-fill-solid"></i>
+                          Savollar soni: {quiz.questions?.length}
                         </li>
                       </ul>
                     </div>
 
-                    {/* <h4 className="title">{lesson.title}</h4> */}
+                    <h4 className="title">{quiz.lesson_title || quiz.title}</h4>
+                  </div>
 
-                    <div className="thumbnail block-alignwide">
-                      <img
-                        className="radius-small w-100 mb--30"
-                        src={lesson.cover_image}
-                        alt="Blog Thumb"
-                        style={{
-                          maxHeight: 600
-                        }}
+                  <div className="quiz-container">
+                    {quiz.questions?.map((question, index) => (
+                      <QuizQuestion
+                        key={index}
+                        isSubmitted={isSubmitted}
+                        number={index + 1}
+                        question={question}
+                        setHasCorrectAnswer={isCorrect =>
+                          setCorrectAnswerCount(old => (isCorrect ? old + 1 : old - 1))
+                        }
                       />
-                    </div>
+                    ))}
                   </div>
-                  <div
-                    className="blog-main-content"
-                    dangerouslySetInnerHTML={{
-                      __html: lesson.content || ''
-                    }}
-                  ></div>
 
-                  <div className="blog-tag-and-share mt--50">
-                    {/* {data.tags && data.tags.length > 0 && (
-                      <div className="blog-tag">
-                        <div className="tag-list bg-shade">
-                          {data.tags.map((tag, i) => {
-                            return (
-                              <Link key={i} to={process.env.PUBLIC_URL + `/tag/${slugify(tag)}`}>
-                                {tag}
-                              </Link>
-                            );
-                          })}
-                        </div>
-                      </div>
-                    )} */}
-                    {/* <div className="eduvibe-post-share">
-                      <span>Share: </span>
-                      <a className="linkedin" href="#">
-                        <i className="icon-linkedin"></i>
-                      </a>
-                      <a className="facebook" href="#">
-                        <i className="icon-Fb"></i>
-                      </a>
-                      <a className="twitter" href="#">
-                        <i className="icon-Twitter"></i>
-                      </a>
-                      <a className="youtube" href="#">
-                        <i className="icon-youtube"></i>
-                      </a>
-                    </div> */}
-                    <div className="row">
-                      {/* <div>Darsni o'qib chiqqaningizga ishonmaymiz! 5:22</div> */}
-                      <div className="read-more-btn d-flex">
-                        Darsni o'qib bo'ldingizmi? &nbsp;
-                        <Link
-                          className="btn-transparent"
-                          to={process.env.PUBLIC_URL + `/quizzes/${id}`}
-                        >
-                          Sinov testiga o'tish<i className="icon-arrow-right-line-right"></i>
-                        </Link>
-                      </div>
-                    </div>
+                  <div className="blog-tag-and-share mt--50 d-flex justify-content-end">
+                    <button className="edu-btn btn-transparent " type={'submit'}>
+                      Yakunlash<i className="icon-arrow-right-line-right"></i>
+                    </button>
                   </div>
+
                   {/*
                   <div className="blog-author-wrapper">
                     <div className="thumbnail">
@@ -184,11 +168,11 @@ const CourseCreate = () => {
                 </div>
               </div>
             </div>
-          </div>
+          </form>
         </div>
       </Layout>
     </>
   );
 };
 
-export default CourseCreate;
+export default Quiz;

@@ -51,7 +51,6 @@ import HomeFive from './pages/homepages/HomeFive';
 import InstructorPageOne from './pages/innerpages/InstructorPageOne';
 import InstructorPageTwo from './pages/innerpages/InstructorPageTwo';
 import InstructorPageThree from './pages/innerpages/InstructorPageThree';
-import LandingDemo from './pages/LandingDemo';
 import LoginRegister from './pages/innerpages/LoginRegister';
 import Pricing from './pages/innerpages/Pricing';
 import PrivacyPolicy from './pages/innerpages/PrivacyPolicy';
@@ -63,6 +62,7 @@ import Error from './pages/innerpages/Error';
 // Import Css Here
 import './assets/scss/style.scss';
 import CourseCreate from './pages/detailspages/CourseCreate';
+import Quiz from './pages/detailspages/Quiz';
 
 function App() {
   return (
@@ -104,6 +104,7 @@ function App() {
             path={`${process.env.PUBLIC_URL + '/lessons/:id'}`}
             element={<CourseCreate />}
           />
+          <Route exact path={`${process.env.PUBLIC_URL + '/quizzes/:id'}`} element={<Quiz />} />
           <Route exact path={`${process.env.PUBLIC_URL + '/course-2'}`} element={<CourseTwo />} />
           <Route exact path={`${process.env.PUBLIC_URL + '/course-3'}`} element={<CourseThree />} />
           <Route exact path={`${process.env.PUBLIC_URL + '/course-4'}`} element={<CourseFour />} />
