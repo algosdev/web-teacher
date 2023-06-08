@@ -39,7 +39,7 @@ const CourseCard = ({ data, classes }) => {
             <span className="rating-count">({data.rating || 5})</span>
           </div>
           <h6 className="title">
-            <Link to={process.env.PUBLIC_URL + `/course-details/${data.id}`}>{data.title}</Link>
+            <Link to={process.env.PUBLIC_URL + `/lessons/${data.id}`}>{data.title}</Link>
           </h6>
           <ul className="edu-meta meta-01">
             <li>

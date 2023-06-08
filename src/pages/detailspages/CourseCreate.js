@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { Link, Navigate, useParams } from 'react-router-dom';
 import SEO from '../../common/SEO';
 import Layout from '../../common/Layout';
 import BreadcrumbOne from '../../common/breadcrumb/BreadcrumbOne';
@@ -10,11 +10,14 @@ import { formatDate } from '../../utils/date';
 
 const CourseCreate = () => {
   const { id } = useParams();
-  const { getDocument } = useFirebase();
+  const { getDocument, isAuthenticated } = useFirebase();
   const { data: lesson = {}, isLoading } = useQuery(['lessons', id], () =>
     getDocument({ collectionName: 'lessons', id })
   );
-  console.log(lesson);
+  console.log(lesson, isAuthenticated);
+  if (!isAuthenticated) {
+    return <Navigate to="/login-register" />;
+  }
 
   return (
     <>

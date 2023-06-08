@@ -6,7 +6,9 @@ export default function QuizQuestion({ question, number, setHasCorrectAnswer, is
 
   return (
     <div className="quiz-question-container">
-      <h5>{number}. title</h5>
+      <h5>
+        {number}. {title}
+      </h5>
       {cover_image && (
         <img
           className="radius-small w-100 mb--30"
@@ -18,11 +20,12 @@ export default function QuizQuestion({ question, number, setHasCorrectAnswer, is
         />
       )}
       {answers.map((answer, index) => (
-        <label className="quiz-question " htmlFor={answer.title} key={title}>
+        <label className="quiz-question " htmlFor={answer.title} key={answer.title}>
           <input
             type="radio"
             name="quiz-question"
             required
+            disabled={isSubmitted}
             checked={checkedIndex === index}
             onChange={e => {
               console.log(e.target.checked);
