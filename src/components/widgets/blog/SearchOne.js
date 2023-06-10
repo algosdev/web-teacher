@@ -1,6 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const SearchOne = props => {
+  const [query, setQuery] = useState('');
+  const navigate = useNavigate();
   return (
     <div
       className={`edu-blog-widget${props.style2 === 'enable' ? '-2' : ''} widget-search ${
@@ -8,14 +11,17 @@ const SearchOne = props => {
       }`}
     >
       <div className="inner">
-        <h5 className="widget-title">Qidirish</h5>
+        <h5 className="widget-title">Qidsirish</h5>
         <div className="content">
-          <form className="blog-search" action="#">
+          <dov className="blog-search">
             <input type="text" placeholder="Search your Keyword..." />
-            <button className="search-button">
+            <button
+              className="search-button"
+              onClick={() => query && navigate(`/lessons?query=${query}`)}
+            >
               <i className="icon-search-line"></i>
             </button>
-          </form>
+          </dov>
         </div>
       </div>
     </div>

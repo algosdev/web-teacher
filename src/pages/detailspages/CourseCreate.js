@@ -1,34 +1,136 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link, Navigate, useParams } from 'react-router-dom';
 import SEO from '../../common/SEO';
 import Layout from '../../common/Layout';
 import BreadcrumbOne from '../../common/breadcrumb/BreadcrumbOne';
-import Comment from '../blog/Comment';
 import { useQuery } from '@tanstack/react-query';
 import { useFirebase } from '../../providers/firebase/FirebaseProvider';
 import { formatDate } from '../../utils/date';
+import { useCountdown } from '../../hooks/useCountdown';
 
+export const FinishValidation = ({ lesson, oldStayDuration }) => {
+  const [formattedTime, count] = useCountdown((lesson.duration || 0) * 60 - oldStayDuration);
+  return (
+    <div
+      className="row"
+      style={{
+        maxWidth: 400
+      }}
+    >
+      <div className="row">
+        <p>
+          {!count ? (
+            "Darsni o'zlashtirdim deb o'ylaysizmi?"
+          ) : (
+            <>
+              Biz sizning inson ekanligingizni bilamiz va normal o'quvchi bu darsni{' '}
+              {lesson.duration || 0} daqiqada tugatadi 🙂. Siz hali yetarli vaqt sarflamadingiz:{' '}
+              {formattedTime}
+            </>
+          )}
+        </p>
+        {!count && (
+          <Link
+            className="btn-transparent"
+            to={process.env.PUBLIC_URL + `/quizzes/${lesson.quiz?.id}`}
+          >
+            Sinov testiga o'tish<i className="icon-arrow-right-line-right"></i>
+          </Link>
+        )}
+      </div>
+    </div>
+  );
+};
 const CourseCreate = () => {
   const { id } = useParams();
-  const { getDocument, isAuthenticated } = useFirebase();
-  const { data: lesson = {}, isLoading } = useQuery(['lessons', id], () =>
+  const { getDocument, isAuthenticated, userData, updateUser, updateDocument } = useFirebase();
+  let { data: lesson = {}, isLoading } = useQuery(['lessons', id], () =>
     getDocument({ collectionName: 'lessons', id })
   );
-  console.log(lesson, isAuthenticated);
+  const viewersCount = Object.keys(lesson?.viewers || {}).length;
+
+  useEffect(() => {
+    if (!userData || !lesson || userData?.lessons?.[id]?.stayDuration === lesson.duration * 60) {
+      return;
+    }
+
+    const timeout = setTimeout(() => {
+      let newStayDuration = (userData.lessons[id]?.stayDuration || 0) + 10;
+      let isFinished = false;
+      if (newStayDuration >= lesson.duration * 60) {
+        newStayDuration = lesson.duration * 60;
+        isFinished = true;
+      }
+      updateUser({
+        lessons: {
+          ...userData.lessons,
+          [id]: {
+            ...userData.lessons[id],
+            stayDuration: newStayDuration,
+            updatedAt: new Date(),
+            isFinished
+          }
+        }
+      });
+    }, 10000);
+    return () => {
+      clearTimeout(timeout);
+    };
+  }, [userData]);
+
+  useEffect(() => {
+    if (lesson?.id && userData?.uid) {
+      updateDocument(
+        {
+          viewers: {
+            ...lesson.viewers,
+            [userData?.uid]: true
+          }
+        },
+        {
+          collectionName: 'lessons',
+          id: lesson.id
+        }
+      );
+    }
+  }, [lesson, userData?.uid]);
+  console.log(lesson);
   if (!isAuthenticated) {
+    localStorage.setItem('savedPath', window.location.pathname);
     return <Navigate to="/login-register" />;
   }
 
   return (
     <>
-      <SEO title={lesson.title} />
+      <SEO title={lesson?.title || 'Dars'} />
       <Layout isLoading={isLoading}>
         <BreadcrumbOne
-          title={lesson.title}
+          title={lesson?.title || 'Dars'}
           rootUrl="/"
           parentUrl="Asosiy sahifa"
           currentUrl="Dars"
         />
+        {userData?.isAdmin && lesson?.id && (
+          <div className="container pt--30 d-flex justify-content-end">
+            <a
+              href={`https://web-teacher-admin.vercel.app/?id=${lesson?.id}`}
+              target="_blank"
+              className="edu-btn"
+              rel="noreferrer"
+            >
+              Darsni tahrirlash
+            </a>
+
+            <a
+              href={`https://web-teacher-admin.vercel.app/quiz?id=${lesson?.quiz?.id || ''}`}
+              target="_blank"
+              className="edu-btn ml--10"
+              rel="noreferrer"
+            >
+              Sinov testini {lesson?.quiz?.id ? 'tahrirlash' : 'yaratish'}
+            </a>
+          </div>
+        )}
         <div className="edu-blog-details-area edu-section-gap bg-color-white">
           <div className="container">
             <div className="row g-5">
@@ -40,15 +142,15 @@ const CourseCreate = () => {
                       <ul className="blog-meta">
                         <li>
                           <i className="icon-calendar-2-line"></i>
-                          {formatDate(lesson.createdAt?.seconds * 1000)}
+                          {formatDate(lesson?.createdAt?.seconds * 1000)}
                         </li>
                         <li>
-                          <i className="icon-discuss-line"></i>
-                          {lesson.comment || 2} izoh
+                          <i className="icon-group-line"></i>
+                          {viewersCount} o'quvchi
                         </li>
                         <li>
                           <i className="icon-time-line"></i>
-                          {lesson.duration} minut
+                          {lesson?.duration} daqiqa
                         </li>
                       </ul>
                     </div>
@@ -58,7 +160,7 @@ const CourseCreate = () => {
                     <div className="thumbnail block-alignwide">
                       <img
                         className="radius-small w-100 mb--30"
-                        src={lesson.cover_image}
+                        src={lesson?.cover_image}
                         alt="Blog Thumb"
                         style={{
                           maxHeight: 600
@@ -69,11 +171,11 @@ const CourseCreate = () => {
                   <div
                     className="blog-main-content"
                     dangerouslySetInnerHTML={{
-                      __html: lesson.content || ''
+                      __html: lesson?.content || ''
                     }}
                   ></div>
 
-                  <div className="blog-tag-and-share mt--50">
+                  <div className="blog-tag-and-share mt--50 d-flex justify-content-end">
                     {/* {data.tags && data.tags.length > 0 && (
                       <div className="blog-tag">
                         <div className="tag-list bg-shade">
@@ -102,18 +204,12 @@ const CourseCreate = () => {
                         <i className="icon-youtube"></i>
                       </a>
                     </div> */}
-                    <div className="row">
-                      {/* <div>Darsni o'qib chiqqaningizga ishonmaymiz! 5:22</div> */}
-                      <div className="read-more-btn d-flex">
-                        Darsni o'qib bo'ldingizmi? &nbsp;
-                        <Link
-                          className="btn-transparent"
-                          to={process.env.PUBLIC_URL + `/quizzes/${id}`}
-                        >
-                          Sinov testiga o'tish<i className="icon-arrow-right-line-right"></i>
-                        </Link>
-                      </div>
-                    </div>
+                    {lesson && (
+                      <FinishValidation
+                        lesson={lesson}
+                        oldStayDuration={userData?.lessons?.[id]?.stayDuration || 0}
+                      />
+                    )}
                   </div>
                   {/*
                   <div className="blog-author-wrapper">

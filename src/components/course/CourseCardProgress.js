@@ -1,10 +1,13 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { useFirebase } from '../../providers/firebase/FirebaseProvider';
 
-const CourseCard = ({ data, classes }) => {
-  console.log('Data', data);
+const CourseCardProgress = ({ data, classes }) => {
+  const { userData } = useFirebase();
+  const stayDuration = userData.lessons[data.id]?.stayDuration || 0;
+  const percentage = Math.min(100, Math.floor((stayDuration / (data.duration * 60)) * 100));
+
   const viewersCount = Object.keys(data.viewers || {}).length;
-
   return (
     <div className={`edu-card card-type-5 radius-small ${classes ? classes : ''}`}>
       <div className="inner">
@@ -22,7 +25,6 @@ const CourseCard = ({ data, classes }) => {
               alt="Course Thumb"
             />
           </Link>
-          <div className="top-position status-group left-top"></div>
           <div className="wishlist-top-right">
             <button className="wishlist-btn">
               <i className="icon-Heart"></i>
@@ -30,15 +32,18 @@ const CourseCard = ({ data, classes }) => {
           </div>
         </div>
         <div className="content">
-          <div className="edu-rating rating-default">
-            <div className="rating eduvibe-course-rating-stars">
-              <i className="icon-Star"></i>
-              <i className="icon-Star"></i>
-              <i className="icon-Star"></i>
-              <i className="icon-Star"></i>
-              <i className="icon-Star"></i>
+          <div className="">
+            <div
+              style={{
+                display: 'flex',
+                alignItems: 'center'
+              }}
+            >
+              <span>{percentage}% &nbsp;</span>
+              <div className="linear-progress">
+                <div className={`current-progression linear-progress-${percentage}`}></div>
+              </div>
             </div>
-            <span className="rating-count">({data.rating || 5})</span>
           </div>
           <h6 className="title">
             <Link to={process.env.PUBLIC_URL + `/lessons/${data.id}`}>{data.title}</Link>
@@ -46,7 +51,7 @@ const CourseCard = ({ data, classes }) => {
           <ul className="edu-meta meta-01">
             <li>
               <i className="icon-time-line"></i>
-              {data.duration} daqiq
+              {data.duration} daqiqa
             </li>
             <li>
               <i className="icon-group-line"></i>
@@ -56,7 +61,8 @@ const CourseCard = ({ data, classes }) => {
           <div className="card-bottom">
             <div className="read-more-btn">
               <Link className="btn-transparent" to={process.env.PUBLIC_URL + `/lessons/${data.id}`}>
-                Darsni boshlash<i className="icon-arrow-right-line-right"></i>
+                Darsni {percentage === 100 ? "ko'rish" : 'davom ettirish'}
+                <i className="icon-arrow-right-line-right"></i>
               </Link>
             </div>
           </div>
@@ -65,4 +71,4 @@ const CourseCard = ({ data, classes }) => {
     </div>
   );
 };
-export default CourseCard;
+export default CourseCardProgress;

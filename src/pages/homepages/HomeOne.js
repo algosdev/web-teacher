@@ -21,21 +21,20 @@ const HomeOne = () => {
 
       <BannerOne />
 
-      <HomeOneAbout />
+      {/* <HomeOneAbout /> */}
 
-      <HomeOneCategory />
+      {/* <HomeOneCategory /> */}
 
       <HomeOneCourses />
 
-      <TestimonialSectionFour />
+      {/* <TestimonialSectionFour /> */}
 
-      <HomeOneInstructor />
+      {/* <HomeOneInstructor /> */}
 
       <VideoSectionTwo />
-
       <NewsLettterOne />
 
-      <HomeOneBlog />
+      {/* <HomeOneBlog /> */}
 
       <FooterOne />
     </>

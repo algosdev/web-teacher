@@ -27,12 +27,12 @@ export default function FirebaseProvider({ children }) {
 
   const createDocument = (data, options) => {
     const validated = omitBy(data, isUndefined);
-    return firebaseInstance.createDocument({ ...validated, userId: currentUser.id }, options);
+    return firebaseInstance.createDocument({ ...validated }, options);
   };
 
   const updateDocument = (data, options) => {
     const validated = omitBy(data, isUndefined);
-    return firebaseInstance.updateDocument({ ...validated, userId: currentUser.id }, options);
+    return firebaseInstance.updateDocument({ ...validated }, options);
   };
 
   useEffect(() => {

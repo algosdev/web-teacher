@@ -11,7 +11,6 @@ import {
   setDoc,
   updateDoc,
   deleteDoc,
-  serverTimestamp,
   onSnapshot,
   writeBatch,
   initializeFirestore
@@ -65,8 +64,9 @@ class Firebase {
         return this.createDocument(
           {
             uid: user.uid,
+            email,
             fullname,
-            avatar: 'panda',
+            avatar: Math.random() * (6 - 1) + 1,
             quizzes: {},
             lessons: {}
           },
@@ -120,7 +120,7 @@ class Firebase {
       const docRef = doc(this.firestore, collectionName, id);
       const docSnap = await getDoc(docRef);
       if (docSnap.exists()) {
-        return docSnap.data();
+        return { ...docSnap.data(), id };
       }
       return null;
     } catch (err) {
@@ -144,7 +144,7 @@ class Firebase {
     try {
       const payloadWithTimestamp = {
         ...data,
-        createdAt: serverTimestamp()
+        createdAt: new Date()
       };
       let res;
       // if id is not provided, random id is generated
@@ -210,7 +210,7 @@ class Firebase {
     try {
       const payloadWithTimestamp = {
         ...data,
-        updatedAt: serverTimestamp()
+        updatedAt: new Date()
       };
       const ref = doc(this.firestore, collectionName, id);
       const res = await updateDoc(ref, payloadWithTimestamp);
@@ -232,7 +232,7 @@ class Firebase {
     try {
       const payloadWithTimestamp = {
         ...data,
-        updatedAt: serverTimestamp()
+        updatedAt: new Date()
       };
       const ref = doc(this.firestore, 'users', this.auth.currentUser?.uid);
       const res = await updateDoc(ref, payloadWithTimestamp);

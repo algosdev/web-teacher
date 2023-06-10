@@ -1,61 +1,61 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import ScrollToTop from './components/scrolltotop/ScrollToTop';
-import CourseFilterSidebar from './pages/course/CourseFilterSidebar';
-import AboutUsOne from './pages/innerpages/AboutUsOne';
-import AboutUsTwo from './pages/innerpages/AboutUsTwo';
-import AboutUsThree from './pages/innerpages/AboutUsThree';
-import BlogGridOne from './pages/blog/BlogGridOne';
-import BlogGridTwo from './pages/blog/BlogGridTwo';
-import BlogGridThree from './pages/blog/BlogGridThree';
-import BlogCarousel from './pages/blog/BlogCarousel';
-import BlogLoadMore from './pages/blog/BlogLoadMore';
-import BlogStandard from './pages/blog/BlogStandard';
-import BlogGridRightSidebar from './pages/blog/BlogGridRightSidebar';
-import BlogGridLeftSidebar from './pages/blog/BlogGridLeftSidebar';
-import BlogDetailsOne from './pages/detailspages/BlogDetailsOne';
-import BlogDetailsTwo from './pages/detailspages/BlogDetailsTwo';
-import BlogDetailsThree from './pages/detailspages/BlogDetailsThree';
-import CategoryArchive from './pages/archive/CategoryArchive';
-import TagArchive from './pages/archive/TagArchive';
-import AuthorArchive from './pages/archive/AuthorArchive';
-import ComingSoon from './pages/innerpages/ComingSoon';
-import ContactMe from './pages/innerpages/ContactMe';
-import ContactUs from './pages/innerpages/ContactUs';
+// import CourseFilterSidebar from './pages/course/CourseFilterSidebar';
+// import AboutUsOne from './pages/innerpages/AboutUsOne';
+// import AboutUsTwo from './pages/innerpages/AboutUsTwo';
+// import AboutUsThree from './pages/innerpages/AboutUsThree';
+// import BlogGridOne from './pages/blog/BlogGridOne';
+// import BlogGridTwo from './pages/blog/BlogGridTwo';
+// import BlogGridThree from './pages/blog/BlogGridThree';
+// import BlogCarousel from './pages/blog/BlogCarousel';
+// import BlogLoadMore from './pages/blog/BlogLoadMore';
+// import BlogStandard from './pages/blog/BlogStandard';
+// import BlogGridRightSidebar from './pages/blog/BlogGridRightSidebar';
+// import BlogGridLeftSidebar from './pages/blog/BlogGridLeftSidebar';
+// import BlogDetailsOne from './pages/detailspages/BlogDetailsOne';
+// import BlogDetailsTwo from './pages/detailspages/BlogDetailsTwo';
+// import BlogDetailsThree from './pages/detailspages/BlogDetailsThree';
+// import CategoryArchive from './pages/archive/CategoryArchive';
+// import TagArchive from './pages/archive/TagArchive';
+// import AuthorArchive from './pages/archive/AuthorArchive';
+// import ComingSoon from './pages/innerpages/ComingSoon';
+// import ContactMe from './pages/innerpages/ContactMe';
+// import ContactUs from './pages/innerpages/ContactUs';
 import CourseOne from './pages/course/CourseOne';
-import CourseTwo from './pages/course/CourseTwo';
-import CourseThree from './pages/course/CourseThree';
-import CourseFour from './pages/course/CourseFour';
-import CourseFive from './pages/course/CourseFive';
-import CourseFilterOne from './pages/course/CourseFilterOne';
-import CourseFilterTwo from './pages/course/CourseFilterTwo';
-import CourseCarousel from './pages/course/CourseCarousel';
-import CourseLoadMore from './pages/course/CourseLoadMore';
-import CourseCategoryArchive from './pages/archive/CourseCategoryArchive';
-import CourseDetails from './pages/detailspages/CourseDetails';
-import CourseDetailsTwo from './pages/detailspages/CourseDetailsTwo';
-import EventGrid from './pages/innerpages/EventGrid';
-import EventList from './pages/innerpages/EventList';
-import EventLoadMore from './pages/innerpages/EventLoadMore';
-import EventCarousel from './pages/innerpages/EventCarousel';
-import EventDetails from './pages/detailspages/EventDetails';
-import Faq from './pages/innerpages/Faq';
-import GalleryGrid from './pages/innerpages/GalleryGrid';
-import GalleryMasonry from './pages/innerpages/GalleryMasonry';
-import GalleryLoadMore from './pages/innerpages/GalleryLoadMore';
+// import CourseTwo from './pages/course/CourseTwo';
+// import CourseThree from './pages/course/CourseThree';
+// import CourseFour from './pages/course/CourseFour';
+// import CourseFive from './pages/course/CourseFive';
+// import CourseFilterOne from './pages/course/CourseFilterOne';
+// import CourseFilterTwo from './pages/course/CourseFilterTwo';
+// import CourseCarousel from './pages/course/CourseCarousel';
+// import CourseLoadMore from './pages/course/CourseLoadMore';
+// import CourseCategoryArchive from './pages/archive/CourseCategoryArchive';
+// import CourseDetails from './pages/detailspages/CourseDetails';
+// import CourseDetailsTwo from './pages/detailspages/CourseDetailsTwo';
+// import EventGrid from './pages/innerpages/EventGrid';
+// import EventList from './pages/innerpages/EventList';
+// import EventLoadMore from './pages/innerpages/EventLoadMore';
+// import EventCarousel from './pages/innerpages/EventCarousel';
+// import EventDetails from './pages/detailspages/EventDetails';
+// import Faq from './pages/innerpages/Faq';
+// import GalleryGrid from './pages/innerpages/GalleryGrid';
+// import GalleryMasonry from './pages/innerpages/GalleryMasonry';
+// import GalleryLoadMore from './pages/innerpages/GalleryLoadMore';
 import HomeOne from './pages/homepages/HomeOne';
-import HomeTwo from './pages/homepages/HomeTwo';
-import HomeThree from './pages/homepages/HomeThree';
-import HomeFour from './pages/homepages/HomeFour';
-import HomeFive from './pages/homepages/HomeFive';
-import InstructorPageOne from './pages/innerpages/InstructorPageOne';
-import InstructorPageTwo from './pages/innerpages/InstructorPageTwo';
-import InstructorPageThree from './pages/innerpages/InstructorPageThree';
+// import HomeTwo from './pages/homepages/HomeTwo';
+// import HomeThree from './pages/homepages/HomeThree';
+// import HomeFour from './pages/homepages/HomeFour';
+// import HomeFive from './pages/homepages/HomeFive';
+// import InstructorPageOne from './pages/innerpages/InstructorPageOne';
+// import InstructorPageTwo from './pages/innerpages/InstructorPageTwo';
+// import InstructorPageThree from './pages/innerpages/InstructorPageThree';
 import LoginRegister from './pages/innerpages/LoginRegister';
-import Pricing from './pages/innerpages/Pricing';
+// import Pricing from './pages/innerpages/Pricing';
 import PrivacyPolicy from './pages/innerpages/PrivacyPolicy';
-import PurchaseGuide from './pages/innerpages/PurchaseGuide';
-import Testimonial from './pages/innerpages/Testimonial';
+// import PurchaseGuide from './pages/innerpages/PurchaseGuide';
+// import Testimonial from './pages/innerpages/Testimonial';
 import InstructorDetails from './pages/detailspages/InstructorDetails';
 import Error from './pages/innerpages/Error';
 
@@ -63,6 +63,8 @@ import Error from './pages/innerpages/Error';
 import './assets/scss/style.scss';
 import CourseCreate from './pages/detailspages/CourseCreate';
 import Quiz from './pages/detailspages/Quiz';
+import CourseList from './pages/course/CourseList';
+import QuizList from './pages/course/QuizList';
 
 function App() {
   return (
@@ -70,7 +72,36 @@ function App() {
       <ScrollToTop>
         <Routes>
           <Route exact path="/" element={<HomeOne />} />
-          <Route exact path={`${process.env.PUBLIC_URL + '/home-1'}`} element={<HomeOne />} />
+          <Route exact path={`${process.env.PUBLIC_URL + '/quizzes'}`} element={<QuizList />} />
+          <Route exact path={`${process.env.PUBLIC_URL + '/lessons'}`} element={<CourseOne />} />
+          <Route
+            exact
+            path={`${process.env.PUBLIC_URL + '/lessons/:id'}`}
+            element={<CourseCreate />}
+          />
+          <Route
+            exact
+            path={`${process.env.PUBLIC_URL + '/lessons/search/:query'}`}
+            element={<CourseList />}
+          />
+          <Route exact path={`${process.env.PUBLIC_URL + '/quizzes/:id'}`} element={<Quiz />} />
+          <Route
+            exact
+            path={`${process.env.PUBLIC_URL + '/profile'}`}
+            element={<InstructorDetails />}
+          />
+          <Route
+            exact
+            path={`${process.env.PUBLIC_URL + '/useful-links'}`}
+            element={<PrivacyPolicy />}
+          />
+          <Route
+            exact
+            path={`${process.env.PUBLIC_URL + '/login-register'}`}
+            element={<LoginRegister />}
+          />
+
+          {/* <Route exact path={`${process.env.PUBLIC_URL + '/home-1'}`} element={<HomeOne />} />
           <Route exact path={`${process.env.PUBLIC_URL + '/home-2'}`} element={<HomeTwo />} />
           <Route exact path={`${process.env.PUBLIC_URL + '/home-3'}`} element={<HomeThree />} />
           <Route exact path={`${process.env.PUBLIC_URL + '/home-4'}`} element={<HomeFour />} />
@@ -98,14 +129,8 @@ function App() {
           <Route exact path={`${process.env.PUBLIC_URL + '/contact-me'}`} element={<ContactMe />} />
           <Route exact path={`${process.env.PUBLIC_URL + '/contact-us'}`} element={<ContactUs />} />
           <Route exact path={`${process.env.PUBLIC_URL + '/course-1'}`} element={<CourseOne />} />
-          <Route exact path={`${process.env.PUBLIC_URL + '/lessons'}`} element={<CourseOne />} />
-          <Route
-            exact
-            path={`${process.env.PUBLIC_URL + '/lessons/:id'}`}
-            element={<CourseCreate />}
-          />
-          <Route exact path={`${process.env.PUBLIC_URL + '/quizzes/:id'}`} element={<Quiz />} />
-          <Route exact path={`${process.env.PUBLIC_URL + '/course-2'}`} element={<CourseTwo />} />
+          */}
+          {/* <Route exact path={`${process.env.PUBLIC_URL + '/course-2'}`} element={<CourseTwo />} />
           <Route exact path={`${process.env.PUBLIC_URL + '/course-3'}`} element={<CourseThree />} />
           <Route exact path={`${process.env.PUBLIC_URL + '/course-4'}`} element={<CourseFour />} />
           <Route exact path={`${process.env.PUBLIC_URL + '/course-5'}`} element={<CourseFive />} />
@@ -165,8 +190,8 @@ function App() {
             exact
             path={`${process.env.PUBLIC_URL + '/event-details/:id'}`}
             element={<EventDetails />}
-          />
-          <Route exact path={`${process.env.PUBLIC_URL + '/faq'}`} element={<Faq />} />
+          /> */}
+          {/* <Route exact path={`${process.env.PUBLIC_URL + '/faq'}`} element={<Faq />} />
           <Route
             exact
             path={`${process.env.PUBLIC_URL + '/gallery-grid'}`}
@@ -202,8 +227,8 @@ function App() {
             exact
             path={`${process.env.PUBLIC_URL + '/privacy-policy'}`}
             element={<PrivacyPolicy />}
-          />
-          <Route
+          /> */}
+          {/* <Route
             exact
             path={`${process.env.PUBLIC_URL + '/purchase-guide'}`}
             element={<PurchaseGuide />}
@@ -218,11 +243,7 @@ function App() {
             path={`${process.env.PUBLIC_URL + '/instructor-details/:slug'}`}
             element={<InstructorDetails />}
           />
-          <Route
-            exact
-            path={`${process.env.PUBLIC_URL + '/profile'}`}
-            element={<InstructorDetails />}
-          />
+
           <Route
             exact
             path={`${process.env.PUBLIC_URL + '/blog-grid-1'}`}
@@ -265,12 +286,6 @@ function App() {
           />
           <Route
             exact
-            path={`${process.env.PUBLIC_URL + '/login-register'}`}
-            element={<LoginRegister />}
-          />
-
-          <Route
-            exact
             path={`${process.env.PUBLIC_URL + '/blog-details/:id'}`}
             element={<BlogDetailsOne />}
           />
@@ -299,7 +314,7 @@ function App() {
             exact
             path={`${process.env.PUBLIC_URL + '/author/:slug'}`}
             element={<AuthorArchive />}
-          />
+          /> */}
           <Route path="*" element={<Error />} />
         </Routes>
       </ScrollToTop>

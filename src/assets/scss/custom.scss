@@ -12,7 +12,7 @@
   justify-content: space-between;
   flex-direction: column;
   max-width: 970px;
-  padding: 85px 50px;
+  padding: 32px;
 }
 
 .quiz-question-container .quiz-question input[type='radio'] {
@@ -47,7 +47,9 @@
   margin-right: 30px;
   height: 72px;
 }
-
+.quiz-question-container .quiz-question .quiz-question-details {
+  width: 100%;
+}
 .quiz-question-container .quiz-question .quiz-question-details span {
   margin-bottom: 10px;
   display: block;
@@ -94,4 +96,21 @@
 }
 .quiz-question-container .quiz-question-content.correct {
   background-color: #b1ffb2 !important;
+}
+
+.linear-progress {
+  background-color: #eeeeee;
+  height: 4px;
+  flex: 1;
+}
+
+.current-progression {
+  height: 4px;
+  background-color: #43a047;
+}
+
+@for $i from 0 through 100 {
+  .linear-progress-#{$i} {
+    width: $i - 0%;
+  }
 }

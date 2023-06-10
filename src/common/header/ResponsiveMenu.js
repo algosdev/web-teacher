@@ -1,5 +1,5 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import Nav from './Nav';
 
 const ResponsiveMenu = ({ show, onClose, showSearch, onSearch }) => {
@@ -22,6 +22,16 @@ const ResponsiveMenu = ({ show, onClose, showSearch, onSearch }) => {
       };
     }
   }
+  const navigate = useNavigate();
+
+  const [query, setQuery] = useState('');
+  const handleSubmit = e => {
+    e.preventDefault();
+    if (query.trim()) {
+      navigate(`/lessons/search/${query}`);
+      onSearch();
+    }
+  };
 
   return (
     <>
@@ -50,8 +60,15 @@ const ResponsiveMenu = ({ show, onClose, showSearch, onSearch }) => {
           </button>
         </div>
         <div className="inner">
-          <form className="search-form" action="#">
-            <input type="text" className="eduvibe-search-popup-field" placeholder="Qidirish..." />
+          <form className="search-form" onSubmit={handleSubmit}>
+            <input
+              type="text"
+              value={query}
+              onChange={e => setQuery(e.target.value)}
+              name="query"
+              className="eduvibe-search-popup-field"
+              placeholder="Qidirish..."
+            />
             <button className="submit-button">
               <i className="icon-search-line"></i>
             </button>

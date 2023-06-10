@@ -17,7 +17,10 @@ const BannerOne = () => {
                     o'rganamiz
                   </h1>
                   <p className="description">
-                    Oz oz o'rganib, dono bo'lur, Qatra qatra yig'ilib, daryo bo'lur
+                    Oz oz📚 o'rganib, dono👨🏻‍🎓 bo'lur, Qatra qatra💦 yig'ilib, daryo🌊 bo'lur!
+                    <p>
+                      <cite>Alisher Navoiy</cite>
+                    </p>
                   </p>
                   <div className="read-more-btn">
                     <Link className="edu-btn" to="/lessons">
@@ -37,49 +40,23 @@ const BannerOne = () => {
                       <Link to="/course-details/2">
                         <img
                           className="w-100"
-                          src="images/banner/banner-01/banner-course.jpg"
+                          src="images/banner/banner-01/network.jpeg"
                           alt="Course Meta"
                         />
                       </Link>
                       <div className="top-position status-group left-top">
-                        <span className="eduvibe-status status-01 bg-primary-color">UI Design</span>
+                        <span className="eduvibe-status status-01 bg-primary-color">Internet</span>
                       </div>
                     </div>
                     <div className="content">
-                      <ul className="edu-meta meta-04">
-                        <li>
-                          <i className="icon-file-list-3-line"></i>39 Lessons
-                        </li>
-                        <li>
-                          <i className="icon-time-line"></i>8 Hours 28 min
-                        </li>
-                      </ul>
                       <h6 className="title">
-                        <Link to="/course-details/2">
-                          Learning How To Write As A Professional Author
-                        </Link>
+                        <Link to="/course-details/2">Internetning qanday tuzilgan?</Link>
                       </h6>
                       <div className="card-bottom">
                         <p>
-                          Nunc laoreet, lectue dapibus maximus sapien and tincidunted nequed for an
-                          finibu euarcu.
+                          Tarmoqning asosiy elementlari bo'lgan kommutator va marshrutizatorlar
+                          ishlash jarayonlari bilan tanishamiz
                         </p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div className="work-shop">
-                  <div className="inner">
-                    <div className="thumbnail">
-                      <img src="/images/banner/banner-01/workshop.png" alt="Workshop Images" />
-                    </div>
-                    <div className="content">
-                      <h6 className="title">Design Workshop</h6>
-                      <span className="time">Today at 6:00 am</span>
-                      <div>
-                        <Link className="edu-btn btn-secondary btn-small" to="/event-details/1">
-                          Join Now<i className="icon-arrow-right-line-right"></i>
-                        </Link>
                       </div>
                     </div>
                   </div>
@@ -91,7 +68,7 @@ const BannerOne = () => {
                   <div className="thumbnail">
                     <img
                       className="w-100"
-                      src="/images/banner/banner-01/video-image.png"
+                      src="/images/banner/banner-01/switch.jpeg"
                       alt="Video Images"
                     />
                   </div>

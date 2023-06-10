@@ -1,16 +1,22 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { useFirebase } from '../../providers/firebase/FirebaseProvider';
+import { FiRefreshCcw } from 'react-icons/fi';
 
-const CourseCard = ({ data, classes }) => {
+const QuizCard = ({ data, classes }) => {
   console.log('Data', data);
-  const viewersCount = Object.keys(data.viewers || {}).length;
+  const { userData } = useFirebase({});
+  const isFinished = userData?.lessons?.[data.lesson.id]?.isFinished;
+  const to = isFinished ? `/quizzes/${data.id}` : `/lessons/${data.lesson.id}`;
+  const label = isFinished ? 'Sinov testini boshlash' : "Darsga o'tish";
+  const attempt = userData?.quizzes?.[data.id];
 
   return (
     <div className={`edu-card card-type-5 radius-small ${classes ? classes : ''}`}>
       <div className="inner">
         <div className="thumbnail">
           <Link
-            to={process.env.PUBLIC_URL + `/lessons/${data.id}`}
+            to={process.env.PUBLIC_URL + to}
             style={{
               maxHeight: 200,
               minHeight: 200
@@ -30,33 +36,24 @@ const CourseCard = ({ data, classes }) => {
           </div>
         </div>
         <div className="content">
-          <div className="edu-rating rating-default">
-            <div className="rating eduvibe-course-rating-stars">
-              <i className="icon-Star"></i>
-              <i className="icon-Star"></i>
-              <i className="icon-Star"></i>
-              <i className="icon-Star"></i>
-              <i className="icon-Star"></i>
-            </div>
-            <span className="rating-count">({data.rating || 5})</span>
-          </div>
           <h6 className="title">
-            <Link to={process.env.PUBLIC_URL + `/lessons/${data.id}`}>{data.title}</Link>
+            <Link to={process.env.PUBLIC_URL + to}>{data.title}</Link>
           </h6>
           <ul className="edu-meta meta-01">
             <li>
               <i className="icon-time-line"></i>
-              {data.duration} daqiq
+              {data.questions.length} savollar
             </li>
             <li>
-              <i className="icon-group-line"></i>
-              {viewersCount} o'quvchi
+              <FiRefreshCcw />
+              &nbsp;
+              {attempt ? `${attempt.correctCount}/${data.questions?.length}` : "urinish yo'q"}
             </li>
           </ul>
           <div className="card-bottom">
             <div className="read-more-btn">
-              <Link className="btn-transparent" to={process.env.PUBLIC_URL + `/lessons/${data.id}`}>
-                Darsni boshlash<i className="icon-arrow-right-line-right"></i>
+              <Link className="btn-transparent" to={process.env.PUBLIC_URL + to}>
+                {label} <i className="icon-arrow-right-line-right"></i>
               </Link>
             </div>
           </div>
@@ -65,4 +62,4 @@ const CourseCard = ({ data, classes }) => {
     </div>
   );
 };
-export default CourseCard;
+export default QuizCard;

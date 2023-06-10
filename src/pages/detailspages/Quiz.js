@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { Link, Navigate, useNavigate, useParams } from 'react-router-dom';
 import SEO from '../../common/SEO';
 import Layout from '../../common/Layout';
 import BreadcrumbOne from '../../common/breadcrumb/BreadcrumbOne';
@@ -7,42 +7,56 @@ import { useQuery } from '@tanstack/react-query';
 import { useFirebase } from '../../providers/firebase/FirebaseProvider';
 import QuizQuestion from './QuizQuestion';
 import useConfettiFirework from '../../hooks/useConfetti';
+import { toast } from 'react-hot-toast';
 
 const Quiz = () => {
   const { id } = useParams();
-  const { getDocuments, getReference, updateUser, userData } = useFirebase();
+  const { getDocument, updateUser, userData, isAuthenticated } = useFirebase();
   const { data: quiz = {}, isLoading } = useQuery(['quizzes', id], () =>
-    getDocuments({
+    getDocument({
       collectionName: 'quizzes',
-      returnOnlyFirst: true,
-      filters: [
-        { key: 'lesson', operator: '==', value: getReference({ collectionName: 'lessons', id }) }
-      ]
+      id
     })
   );
+  console.log('quiz', quiz);
+  const numberOfQuestions = quiz?.questions?.length || 0;
   const { fire, confettiComponent } = useConfettiFirework();
+  const navigate = useNavigate();
   const [correctAnswerCount, setCorrectAnswerCount] = useState(0);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const handleSubmit = e => {
     e.preventDefault();
+    if (isSubmitted) {
+      navigate('/profile');
+      return;
+    }
     updateUser({
       quizzes: {
         ...userData.quizzes,
         [id]: {
           correctCount: correctAnswerCount,
-          allCount: quiz.questions.length
+          allCount: quiz.questions.length,
+          submittedAt: new Date()
         }
       }
     });
-    const isValid = true;
+    const passingNumberOfQuestions = Math.round(numberOfQuestions * 0.8);
+    const isValid = passingNumberOfQuestions <= correctAnswerCount;
     setIsSubmitted(true);
     if (isValid) {
       fire();
+      toast.success("Sinov testidan muvaffaqiyatli o'tdingiz!");
+    } else {
+      toast.error("Sinov testidan o'ta olmadingiz, darsni qaytdan o'zlashtirishni tavsiya etamiz");
     }
   };
 
   const attempt = userData.quizzes?.[id];
-  console.log('userData', userData);
+
+  if (!isAuthenticated) {
+    localStorage.setItem('savedPath', window.location.pathname);
+    return <Navigate to="/login-register" />;
+  }
 
   return (
     <>
@@ -91,8 +105,16 @@ const Quiz = () => {
                   </div>
 
                   <div className="blog-tag-and-share mt--50 d-flex justify-content-end">
+                    <Link
+                      to={`/lessons/${quiz?.lesson?.id}`}
+                      className="edu-btn btn-transparent mr--10"
+                      type={'submit'}
+                    >
+                      Darsga qaytish
+                    </Link>
                     <button className="edu-btn btn-transparent " type={'submit'}>
-                      Yakunlash<i className="icon-arrow-right-line-right"></i>
+                      {isSubmitted ? "Hisobga o'tish" : 'Yakunlash'}
+                      <i className="icon-arrow-right-line-right"></i>
                     </button>
                   </div>
 

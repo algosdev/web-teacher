@@ -23,7 +23,7 @@ export default function QuizQuestion({ question, number, setHasCorrectAnswer, is
         <label className="quiz-question " htmlFor={answer.title} key={answer.title}>
           <input
             type="radio"
-            name="quiz-question"
+            name={'quiz-question' + number}
             required
             disabled={isSubmitted}
             checked={checkedIndex === index}

@@ -2,17 +2,12 @@ import React from 'react';
 import { useFirebase } from '../../providers/firebase/FirebaseProvider';
 import useRequest from '../../hooks/useRequest';
 import { toast } from 'react-hot-toast';
-import { useNavigate } from 'react-router-dom';
 
 const RegisterForm = () => {
-  const navigate = useNavigate();
   const { createUser } = useFirebase();
   const { isLoading, mutate, Spinner } = useRequest(createUser, {
     onError: err => {
       toast.error(`Ro'yxatdan o'tishda xatolik yuz berdi: ${err.message}`);
-    },
-    onSuccess() {
-      navigate('/');
     }
   });
 

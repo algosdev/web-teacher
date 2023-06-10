@@ -63,7 +63,7 @@ const HeaderOne = ({ styles, disableSticky }) => {
                         className={`edu-btn btn-medium left-icon header-button bg-color-white`}
                         to={process.env.PUBLIC_URL + '/profile'}
                       >
-                        <i className="ri-user-line"></i>Profile
+                        <i className="ri-user-line"></i>Hisob
                       </Link>
                     ) : (
                       <Link

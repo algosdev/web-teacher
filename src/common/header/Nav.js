@@ -13,11 +13,11 @@ const Nav = () => {
       </li>
 
       <li>
-        <Link to="#">Imtihon</Link>
+        <Link to="/quizzes">Sinov testlari</Link>
       </li>
 
       <li>
-        <Link to="/">Kerakli dasturlar</Link>
+        <Link to="/useful-links">Foydali havolalar</Link>
       </li>
     </ul>
   );
