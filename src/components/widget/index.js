@@ -1,15 +1,9 @@
 import React, { useEffect } from 'react';
 import { Configuration, OpenAIApi } from 'openai';
-import {
-  Widget,
-  addResponseMessage,
-  deleteMessages,
-  toggleInputDisabled,
-  toggleMsgLoader
-} from 'react-chat-widget';
+import { Widget, addResponseMessage, deleteMessages, toggleInputDisabled } from 'react-chat-widget';
 import botImage from '../../assets/images/icons/bot.png';
 const configuration = new Configuration({
-  apiKey: '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'
+  apiKey: process.env.REACT_APP_OPEN_AI_API_KEY
 });
 
 const openai = new OpenAIApi(configuration);
