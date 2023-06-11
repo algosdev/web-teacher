@@ -37,21 +37,17 @@ const BannerOne = () => {
                 <div className="edu-card card-type-6 radius-small">
                   <div className="inner">
                     <div className="thumbnail">
-                      <Link to="/course-details/2">
-                        <img
-                          className="w-100"
-                          src="images/banner/banner-01/network.jpeg"
-                          alt="Course Meta"
-                        />
-                      </Link>
+                      <img
+                        className="w-100"
+                        src="images/banner/banner-01/network.jpeg"
+                        alt="Course Meta"
+                      />
                       <div className="top-position status-group left-top">
                         <span className="eduvibe-status status-01 bg-primary-color">Internet</span>
                       </div>
                     </div>
                     <div className="content">
-                      <h6 className="title">
-                        <Link to="/course-details/2">Internetning qanday tuzilgan?</Link>
-                      </h6>
+                      <h6 className="title">Internetning qanday tuzilgan?</h6>
                       <div className="card-bottom">
                         <p>
                           Tarmoqning asosiy elementlari bo'lgan kommutator va marshrutizatorlar
