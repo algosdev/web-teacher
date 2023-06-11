@@ -65,6 +65,7 @@ import CourseCreate from './pages/detailspages/CourseCreate';
 import Quiz from './pages/detailspages/Quiz';
 import CourseList from './pages/course/CourseList';
 import QuizList from './pages/course/QuizList';
+import ChatWidget from './components/widget';
 
 function App() {
   return (
@@ -318,6 +319,7 @@ function App() {
           <Route path="*" element={<Error />} />
         </Routes>
       </ScrollToTop>
+      <ChatWidget />
     </Router>
   );
 }

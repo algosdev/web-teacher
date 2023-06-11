@@ -185,7 +185,7 @@ const FooterOne = () => {
           </div>
         </div>
       </footer>
-      <ScrollTopButton />
+      {/* <ScrollTopButton /> */}
     </>
   );
 };

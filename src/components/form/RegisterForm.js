@@ -24,13 +24,13 @@ const RegisterForm = () => {
       <h3 className="mb-30">Ro'yxatdan o'tish</h3>
       <form className="login-form" onSubmit={handleSubmit}>
         <div className="input-box mb--30">
-          <input type="text" placeholder="Ism/Familiya" />
+          <input required type="text" placeholder="Ism/Familiya" />
         </div>
         <div className="input-box mb--30">
-          <input type="email" placeholder="Electron pochta" />
+          <input required type="email" placeholder="Electron pochta" />
         </div>
         <div className="input-box mb--30">
-          <input type="password" placeholder="Maxfiy so'z" />
+          <input required type="password" placeholder="Maxfiy so'z" />
         </div>
         <button className="rn-btn edu-btn w-100 mb--30" type="submit">
           <span>{isLoading ? <Spinner /> : 'Tasdiqlash'}</span>

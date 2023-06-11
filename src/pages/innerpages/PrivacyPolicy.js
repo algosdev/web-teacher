@@ -2,6 +2,7 @@ import React from 'react';
 import SEO from '../../common/SEO';
 import Layout from '../../common/Layout';
 import BreadcrumbOne from '../../common/breadcrumb/BreadcrumbOne';
+import { FiExternalLink } from 'react-icons/fi';
 
 const PrivacyPolicy = () => {
   return (
@@ -21,86 +22,91 @@ const PrivacyPolicy = () => {
                 <div className="thumbnail mb--50">
                   <img
                     className="radius-small w-100"
-                    src="/images/others/privacy-policy.jpg"
+                    src="/images/banner/banner-01/earth.png"
                     alt="Foydali havolalar"
                   />
                 </div>
 
-                <h4 className="title">Information We Collect</h4>
+                <h4 className="title">Packet Tracer </h4>
                 <p>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus odio lorem,
-                  pulvinar vulputate diam eget, consectetur posuere massa. Suspendisse ornare in
-                  risus quis tempus. Vivamus ornare iaculis mi ut gravida. Integer convallis erat id
-                  dapibus pharetra. Nulla sagittis ligula eros, quis posuere massa auctor ultrices.
-                  Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac
-                  turpis egestas. Praesent facilisis, ante quis accumsan ultricies
+                  Packet Tracer - bu tarmoq simulyatori dasturi. U CCNA amaliyot laboratoriyalarini
+                  qurishda foydalaniladigan tarmoq qurilmalarini simulyatsiya qiladi. Packet Tracer
+                  barcha muhim CCNA laboratoriya qurilmalarini simulyatsiya qilish orqali bu
+                  xarajatlarni kamaytiradi. Simulyatsiyaga asoslangan o'quv muhiti talabalar va
+                  o'qituvchilarga yordam beradi. Talabalar buyruq satridan marshrutizatorlar va
+                  kalitlarni sozlashni o'rganishlari mumkin. Packet Tracer virtual tarmoq
+                  qurilmalaridan foydalangan holda vizual sudrab tashlash muammolarini ta'minlaydi.
+                  O'qituvchilar Packet Tracer-dan talabalar uchun o'z-o'zini baholaydigan
+                  topshiriqlarini yaratish uchun foydalanishlari yoki tarmoq tushunchalarini
+                  namoyish qilish uchun foydalanishlari mumkin.
+                  <p>
+                    <a
+                      href="https://www.computernetworkingnotes.com/ccna-study-guide/download-packet-tracer-for-windows-and-linux.html"
+                      target="_blank"
+                      rel="noreferrer"
+                      style={{ fontSize: 16 }}
+                    >
+                      <FiExternalLink /> Havolaga o'tish
+                    </a>
+                  </p>
                 </p>
 
-                <h4 className="title">Log Data</h4>
+                <h4 className="title">GNS3</h4>
                 <p>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus odio lorem,
-                  pulvinar vulputate diam eget, consectetur posuere massa. Suspendisse ornare in
-                  risus quis tempus. Vivamus ornare iaculis mi ut gravida. Integer convallis erat id
-                  dapibus pharetra. Nulla sagittis ligula eros, quis posuere massa auctor ultrices.
-                  Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac
-                  turpis egestas. Praesent facilisis, ante quis accumsan ultricies. Duis nec tempor
-                  diam. Donec ut sapien pulvinar, fringilla odio in, tristique libero.
+                  GNS3 butun dunyo bo'ylab yuz minglab tarmoq muhandislari tomonidan virtual va real
+                  tarmoqlarga taqlid qilish, sozlash, sinab ko'rish va muammolarni bartaraf etish
+                  uchun ishlatiladi. GNS3 sizga noutbukda bir nechta qurilmalardan iborat kichik
+                  topologiyani ishlatish imkonini beradi, ko'plab qurilmalar bir nechta serverlarda
+                  joylashgan yoki hatto bulutda joylashgan
+                  <p>
+                    <a
+                      href="https://www.gns3.com/"
+                      target="_blank"
+                      rel="noreferrer"
+                      style={{ fontSize: 16 }}
+                    >
+                      <FiExternalLink /> Havolaga o'tish
+                    </a>
+                  </p>
                 </p>
 
-                <h4 className="title">Device Data</h4>
+                <h4 className="title">Tarmoq boshlang'ich tushunchalari</h4>
                 <p>
-                  Pellentesque ut varius leo. Quisque dignissim, orci in iaculis facilisis, tortor
-                  ipsum laoreet ligula, sed aliquam dolor nisl non ligula. Aenean dignissim ligula
-                  aliquam sem auctor, eu laoreet nibh pharetra. Phasellus nec lectus purus. Sed
-                  vitae lectus libero. Pellentesque vel lorem ligula. Maecenas eu orci non felis
-                  placerat malesuada. Aliquam erat volutpat. Fusce et nisl non justo viverra
-                  tincidunt. Ut cursus enim vitae facilisis ornare. Nullam auctor, mi ac tempor
-                  mollis, justo sem pretium magna, at elementum purus nulla facilisis eros. Sed
-                  posuere felis ut ipsum faucibus, a sagittis quam sodales. Donec in dui diam.
+                  Bu Youtube kanalda kommutator, marshrutizatorlar, ular qanday bog'lanishi,
+                  tarmoqning tarkibi, protokollor, shuningdek ma'lumot paketlari internetda qanday
+                  harakatlanishi haqida ma'lumotlarga o'tishingiz mumkin. Sizda ingliz tilini bilish
+                  talab qilinadi.
+                  <p>
+                    <a
+                      href="https://www.youtube.com/playlist?list=PLIFyRwBY_4bRLmKfP1KnZA6rZbRHtxmXi"
+                      target="_blank"
+                      rel="noreferrer"
+                      style={{ fontSize: 16 }}
+                    >
+                      <FiExternalLink /> Havolaga o'tish
+                    </a>
+                  </p>
                 </p>
 
-                <h4 className="title">How to Purchase a Course? </h4>
+                <h4 className="title">Subnet bo'yicha amaliyot</h4>
                 <p>
-                  Duis vitae vehicula risus. Morbi justo mauris, accumsan sed purus ac, varius
-                  viverra orci. Donec ut nunc sodales, posuere enim at, egestas erat.
-                </p>
-                <ol>
-                  <li> Morbi justo mauris, accumsan.</li>
-                  <li>Donec ut nunc sodales.</li>
-                  <li>Nunc et enim eu risus mattis egestas.</li>
-                  <li>Nulla nisl purus, placerat ut nulla.</li>
-                </ol>
-
-                <h4 className="title">Accepted Credit Cards</h4>
-                <p>
-                  Pellentesque ut varius leo. Quisque dignissim, orci in iaculis facilisis, tortor
-                  ipsum laoreet ligula, sed aliquam dolor nisl non ligula. Aenean dignissim ligula
-                  aliquam sem auctor, eu laoreet nibh pharetra. Phasellus nec lectus purus. Sed
-                  vitae lectus libero. Pellentesque vel lorem ligula. Maecenas eu orci non felis
-                  placerat malesuada. Aliquam erat volutpat. Fusce et nisl non justo viverra
-                  tincidunt. Ut cursus enim vitae facilisis ornare. Nullam auctor, mi ac tempor
-                  mollis, justo sem pretium magna, at elementum purus nulla facilisis eros. Sed
-                  posuere felis ut ipsum faucibus, a sagittis quam sodales. Donec in dui diam.
-                </p>
-
-                <h4 className="title">Cookies</h4>
-                <p>
-                  Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac
-                  turpis egestas. Praesent facilisis, ante quis accumsan ultricies, nunc felis
-                  fermentum lorem, at lobortis mi erat non ligula. Nulla nisl purus, placerat ut
-                  nulla nec, convallis cursus arcu. Sed volutpat ullamcorper diam, at porta mi
-                  feugiat sit amet. Maecenas et leo ac tellus aliquet dapibus. Sed rutrum metus eget
-                  arcu commodo, non rutrum sem elementum.
-                </p>
-
-                <h4 className="title">Changes to This Policy</h4>
-                <p>
-                  Morbi justo mauris, accumsan sed purus ac, varius viverra orci. Donec ut nunc
-                  sodales, posuere enim at, egestas erat. Mauris ultricies mauris non nunc malesuada
-                  rutrum. Vestibulum auctor venenatis tellus, ac accumsan est molestie vitae. Donec
-                  venenatis sapien finibus, dictum tellus at, ultrices enim. Cras dictum odio in
-                  nulla auctor, sed commodo augue sodales. Maecenas felis lorem, sagittis ac ipsum
-                  eget, porta sollicitudin diam.
+                  Subnet - IP tarmog'ining mantiqiy bo'linmasi tarmoqni ikki yoki undan ortiq
+                  tarmoqqa boʻlish amaliyoti subnetting deb ataladi . Xuddi shu pastki tarmoqqa
+                  tegishli bo'lgan kompyuterlar IP manzillarining eng muhim bitlarining bir xil
+                  guruhiga murojaat qilishadi . Bu IP-manzilning ikkita maydonga mantiqiy
+                  bo'linishiga olib keladi: tarmoq raqami yoki marshrutlash prefiksi va qolgan
+                  maydon yoki xost identifikatori . Dam olish maydoni ma'lum bir xost yoki tarmoq
+                  interfeysi uchun identifikatordir.
+                  <p>
+                    <a
+                      href="https://subnetipv4.com/"
+                      target="_blank"
+                      rel="noreferrer"
+                      style={{ fontSize: 16 }}
+                    >
+                      <FiExternalLink /> Havolaga o'tish
+                    </a>
+                  </p>
                 </p>
               </div>
             </div>

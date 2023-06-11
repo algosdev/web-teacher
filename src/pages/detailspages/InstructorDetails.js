@@ -54,9 +54,11 @@ const InstructorDetails = () => {
     },
     {
       title: 'Daraja',
-      number: '17'
+      number: 17 - finishedLessonCount
     }
   ];
+
+  console.log('userData', userData);
 
   return (
     <>

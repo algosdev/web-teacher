@@ -66,7 +66,7 @@ class Firebase {
             uid: user.uid,
             email,
             fullname,
-            avatar: Math.random() * (6 - 1) + 1,
+            avatar: Math.round(Math.random() * (6 - 1) + 1),
             quizzes: {},
             lessons: {}
           },
@@ -79,7 +79,7 @@ class Firebase {
       })
       .catch(error => {
         captureException(error);
-        throw error;
+        throw new Error(error.message.replace('Firebase:', ''));
       });
 
   getUserData = user => {
@@ -110,7 +110,7 @@ class Firebase {
       })
       .catch(error => {
         captureException(error);
-        throw error;
+        throw new Error(error.message.replace('Firebase:', ''));
       });
 
   updateProfile = data => fbUpdateProfile(this.auth.currentUser, data);
@@ -132,7 +132,7 @@ class Firebase {
           operation: 'getDoc'
         }
       });
-      throw err;
+      throw new Error(err.message.replace('Firebase:', ''));
     }
   };
 
@@ -153,11 +153,7 @@ class Firebase {
       } else {
         res = await addDoc(collection(this.firestore, collectionName), payloadWithTimestamp);
       }
-      if (shouldReturnDoc) {
-        const docRef = doc(this.firestore, collectionName, res.id);
-        const docSnap = await getDoc(docRef);
-        return { ...docSnap.data(), id: res.id };
-      }
+
       return res;
     } catch (err) {
       captureException(err, {
@@ -168,7 +164,7 @@ class Firebase {
           operation: 'setDoc'
         }
       });
-      throw err;
+      throw new Error(err.message.replace('Firebase:', ''));
     }
   };
 
@@ -202,7 +198,7 @@ class Firebase {
           uid: this.auth.currentUser?.uid
         }
       });
-      throw err;
+      throw new Error(err.message.replace('Firebase:', ''));
     }
   };
 
@@ -224,7 +220,7 @@ class Firebase {
           operation: 'updateDoc'
         }
       });
-      throw err;
+      throw new Error(err.message.replace('Firebase:', ''));
     }
   };
 
@@ -245,7 +241,7 @@ class Firebase {
           operation: 'updateDoc'
         }
       });
-      throw err;
+      throw new Error(err.message.replace('Firebase:', ''));
     }
   };
 
@@ -263,7 +259,7 @@ class Firebase {
           operation: 'deleteDoc'
         }
       });
-      throw err;
+      throw new Error(err.message.replace('Firebase:', ''));
     }
   };
 
@@ -304,7 +300,7 @@ class Firebase {
           operation: 'getDocs'
         }
       });
-      throw err;
+      throw new Error(err.message.replace('Firebase:', ''));
     }
   };
 
@@ -367,7 +363,7 @@ class Firebase {
           operation: 'onSnapshot'
         }
       });
-      throw err;
+      throw new Error(err.message.replace('Firebase:', ''));
     }
   };
 

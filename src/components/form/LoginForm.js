@@ -23,10 +23,10 @@ const LoginForm = () => {
       <h3 className="mb-30">Kirish</h3>
       <form className="login-form" onSubmit={handleSubmit}>
         <div className="input-box mb--30">
-          <input type="email" placeholder="Electron pochta" />
+          <input required type="email" placeholder="Electron pochta" />
         </div>
         <div className="input-box mb--30">
-          <input type="password" placeholder="Maxfiy so'z" />
+          <input required type="password" placeholder="Maxfiy so'z" />
         </div>
         {/* <div className="comment-form-consent input-box mb--30">
           <input id="checkbox-1" type="checkbox" />
