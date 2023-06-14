@@ -30,20 +30,22 @@ const Quiz = () => {
       navigate('/profile');
       return;
     }
+
+    const passingNumberOfQuestions = Math.round(numberOfQuestions * 0.8);
+    const hasPassed = passingNumberOfQuestions <= correctAnswerCount;
     updateUser({
       quizzes: {
         ...userData.quizzes,
         [id]: {
           correctCount: correctAnswerCount,
           allCount: quiz.questions.length,
-          submittedAt: new Date()
+          submittedAt: new Date(),
+          hasPassed
         }
       }
     });
-    const passingNumberOfQuestions = Math.round(numberOfQuestions * 0.8);
-    const isValid = passingNumberOfQuestions <= correctAnswerCount;
     setIsSubmitted(true);
-    if (isValid) {
+    if (hasPassed) {
       fire();
       toast.success("Sinov testidan muvaffaqiyatli o'tdingiz!");
     } else {

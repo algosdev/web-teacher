@@ -1,12 +1,13 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useFirebase } from '../../providers/firebase/FirebaseProvider';
+import { FiCheck, FiLock } from 'react-icons/fi';
 
 const CourseCardProgress = ({ data, classes }) => {
   const { userData } = useFirebase();
   const stayDuration = userData.lessons[data.id]?.stayDuration || 0;
   const percentage = Math.min(100, Math.floor((stayDuration / (data.duration * 60)) * 100));
-
+  const hasQuizPassed = userData.quizzes?.[data.quiz.id]?.hasPassed;
   const viewersCount = Object.keys(data.viewers || {}).length;
   return (
     <div className={`edu-card card-type-5 radius-small ${classes ? classes : ''}`}>
@@ -44,6 +45,8 @@ const CourseCardProgress = ({ data, classes }) => {
                 <div className={`current-progression linear-progress-${percentage}`}></div>
               </div>
             </div>
+            {hasQuizPassed ? <FiCheck /> : <FiLock />}
+            Sinov testidan {hasQuizPassed ? "o'tdingiz" : "o'tmadingiz"}
           </div>
           <h6 className="title">
             <Link to={process.env.PUBLIC_URL + `/lessons/${data.id}`}>{data.title}</Link>

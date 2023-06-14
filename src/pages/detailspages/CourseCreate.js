@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Link, Navigate, useParams } from 'react-router-dom';
+import { Navigate, useNavigate, useParams } from 'react-router-dom';
 import SEO from '../../common/SEO';
 import Layout from '../../common/Layout';
 import BreadcrumbOne from '../../common/breadcrumb/BreadcrumbOne';
@@ -7,9 +7,11 @@ import { useQuery } from '@tanstack/react-query';
 import { useFirebase } from '../../providers/firebase/FirebaseProvider';
 import { formatDate } from '../../utils/date';
 import { useCountdown } from '../../hooks/useCountdown';
+import Comments from './Comments';
 
 export const FinishValidation = ({ lesson, oldStayDuration }) => {
   const [formattedTime, count] = useCountdown((lesson.duration || 0) * 60 - oldStayDuration);
+  const navigate = useNavigate();
   return (
     <div
       className="row"
@@ -25,18 +27,25 @@ export const FinishValidation = ({ lesson, oldStayDuration }) => {
             <>
               Biz sizning inson ekanligingizni bilamiz va normal o'quvchi bu darsni{' '}
               {lesson.duration || 0} daqiqada tugatadi 🙂. Siz hali yetarli vaqt sarflamadingiz:{' '}
-              {formattedTime}
             </>
           )}
-        </p>
-        {!count && (
-          <Link
-            className="btn-transparent"
-            to={process.env.PUBLIC_URL + `/quizzes/${lesson.quiz?.id}`}
+          <button
+            className="edu-btn btn-transparent"
+            style={{
+              background: count !== 0 && 'grey',
+              marginTop: 10
+            }}
+            disabled={count !== 0}
+            onClick={() => {
+              if (count === 0) {
+                navigate(`/quizzes/${lesson.quiz?.id}`);
+              }
+            }}
           >
-            Sinov testiga o'tish<i className="icon-arrow-right-line-right"></i>
-          </Link>
-        )}
+            {count ? formattedTime : ''} Sinov testiga o'tish
+            <i className="icon-arrow-right-line-right"></i>
+          </button>
+        </p>
       </div>
     </div>
   );
@@ -55,6 +64,9 @@ const CourseCreate = () => {
     }
 
     const timeout = setTimeout(() => {
+      if (!document.hasFocus()) {
+        return;
+      }
       let newStayDuration = (userData.lessons[id]?.stayDuration || 0) + 10;
       let isFinished = false;
       if (newStayDuration >= lesson.duration * 60) {
@@ -94,7 +106,7 @@ const CourseCreate = () => {
       );
     }
   }, [lesson, userData?.uid]);
-  console.log(lesson);
+
   if (!isAuthenticated) {
     localStorage.setItem('savedPath', window.location.pathname);
     return <Navigate to="/login-register" />;
@@ -280,6 +292,7 @@ const CourseCreate = () => {
                   {/* <div className="edu-comment-form mt--50">
                     <Comment url="" id={id} title={lesson.title} />
                   </div> */}
+                  <Comments lessonId={id} />
                 </div>
               </div>
             </div>

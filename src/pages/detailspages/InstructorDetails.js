@@ -2,25 +2,19 @@ import React, { useMemo } from 'react';
 import TrackVisibility from 'react-on-screen';
 import CountUp from 'react-countup';
 import Slider from 'react-slick';
-import { useParams, Link } from 'react-router-dom';
-import { slugify } from '../../utils';
+import { Link } from 'react-router-dom';
 import { InstructorCourseSliderParams } from '../../utils/script';
 import SEO from '../../common/SEO';
 import Layout from '../../common/Layout';
 import BreadcrumbOne from '../../common/breadcrumb/BreadcrumbOne';
-import InstructorData from '../../data/instructor/InstructorData.json';
 import { useFirebase } from '../../providers/firebase/FirebaseProvider';
 import {} from '../../assets/avatars/1.svg';
 import { useQueries } from '@tanstack/react-query';
 import CourseCardProgress from '../../components/course/CourseCardProgress';
 import { FiRefreshCw } from 'react-icons/fi';
 const InstructorDetails = () => {
-  const { slug = 'james-carlson' } = useParams();
   const { signOut } = useFirebase();
   const { userData = {}, getDocument, updateUser } = useFirebase();
-
-  const data = InstructorData.filter(instructor => slugify(instructor.name) === slugify(slug));
-  const teamMember = data[0];
   const handleAvatarChange = () => {
     const newIndex = ((userData.avatar ?? 6) + 1) % 7;
     updateUser({ avatar: newIndex });
