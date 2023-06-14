@@ -50,7 +50,7 @@ export default function ChatWidget() {
 
   useEffect(() => {
     deleteMessages(1, 'welcome');
-    addResponseMessage('Salom! Sizga qanday yordam bersam bera olaman? 🙂', 'welcome');
+    addResponseMessage('Salom! Sizga qanday yordam bera olaman? 🙂', 'welcome');
   }, []);
 
   return (
